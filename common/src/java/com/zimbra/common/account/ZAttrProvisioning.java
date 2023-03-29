@@ -2870,6 +2870,14 @@ public class ZAttrProvisioning {
     public static final String A_registeredAddress = "registeredAddress";
 
     /**
+     * Can be used in Mail Recall to make it more secure from spoof.
+     *
+     * @since ZCS 10.0.0
+     */
+    @ZAttr(id=4097)
+    public static final String A_secretKeyForMailRecall = "secretKeyForMailRecall";
+
+    /**
      * RFC2256: last (family) name(s) for which the entity is known by
      */
     @ZAttr(id=-1)
