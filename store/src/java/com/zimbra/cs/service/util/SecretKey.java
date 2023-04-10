@@ -44,10 +44,6 @@ public class SecretKey {
      */
     public static String getMessageVerificationHeaderValue(String id, String date, String from) throws MessagingException, ServiceException {
         String secretKey = Provisioning.getInstance().getConfig().getSecretKeyForMailRecall();
-        if(Strings.isNullOrEmpty(secretKey)) {
-            secretKey = SecretKey.generateRandomString();
-            Provisioning.getInstance().getConfig().setSecretKeyForMailRecall(secretKey);
-        }
         String guid = (id + date + from + secretKey);
         String guidHash = getHashForMessageVerification(guid);
         String hash = MSGVRFY_HEADER_PREFIX + guidHash;

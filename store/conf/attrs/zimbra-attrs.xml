@@ -10319,12 +10319,8 @@ TODO: delete them permanently from here
 <attr id="4093" name="zimbraTrialConvertAtExpiration" type="boolean" cardinality="single" optionalIn="account,cos,domain" flags="accountCosDomainInherited,accountInfo" since="9.0.0">
   <desc>Can be used by an external service to indicate that a trial is set to convert to active at expiration.</desc>
 </attr>
-  <attr id="4097" name="secretKeyForMailRecall" type="string" max="128" cardinality="single" optionalIn="globalConfig" since="10.0.0">
-    <desc>Can be used in Mail Recall to make it more secure from spoof.</desc>
-  </attr>
 
-
-  <attr id="4094" name="zimbraFeatureMailRecallEnabled" type="boolean" cardinality="single" optionalIn="globalConfig,account,cos,domain" flags="domainInfo,accountInfo,domainInherited,accountCosDomainInherited" since="10.0.0">
+  <attr id="4094" name="zimbraFeatureMailRecallEnabled" type="boolean" cardinality="single" optionalIn="globalConfig,account,cos,domain" flags="domainInfo,accountInfo,domainInherited,accountCosDomainInherited" callback="GenerateSecretKeyCallback" since="10.0.0">
     <globalConfigValue>FALSE</globalConfigValue>
     <defaultCOSValue>FALSE</defaultCOSValue>
     <desc>Enables the mail recall functionality</desc>
