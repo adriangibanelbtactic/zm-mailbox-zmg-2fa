@@ -3,6 +3,7 @@ package com.zimbra.cs.service.admin;
 import com.zimbra.common.service.ServiceException;
 import com.zimbra.common.soap.AdminConstants;
 import com.zimbra.common.soap.Element;
+import com.zimbra.common.util.ZimbraLog;
 import com.zimbra.cs.account.Provisioning;
 import com.zimbra.cs.account.soap.SoapProvisioning;
 import com.zimbra.cs.service.util.SecretKey;
@@ -16,13 +17,21 @@ public class GenerateSecretKey extends AdminDocumentHandler {
 
         String randomString = SecretKey.generateRandomString();
         Provisioning.getInstance().getConfig().setSecretKeyForMailRecall(randomString);
-
-        Provisioning prov = Provisioning.getInstance();
-        SoapProvisioning sp = (SoapProvisioning) prov;
-        sp.flushCache("config", null, true);
+        flushCache();
 
         Element response = zsc.createElement(AdminConstants.GENERATE_SECRET_KEY_RESPONSE);
         return response;
+    }
+
+    private void flushCache() {
+        try {
+            SoapProvisioning sp = new SoapProvisioning();
+            sp.soapSetURI(SoapProvisioning.getLocalConfigURI());
+            sp.soapZimbraAdminAuthenticate();
+            sp.flushCache("config", null, true);
+        } catch (ServiceException e) {
+            ZimbraLog.misc.warn("Encountered exception during FlushCache after creating Secret Key", e);
+        }
     }
 
 }

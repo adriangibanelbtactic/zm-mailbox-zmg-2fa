@@ -19,6 +19,7 @@ package com.zimbra.cs.account.callback;
 
 import com.google.common.base.Strings;
 import com.zimbra.common.service.ServiceException;
+import com.zimbra.common.util.ZimbraLog;
 import com.zimbra.cs.account.AttributeCallback;
 import com.zimbra.cs.account.Entry;
 import com.zimbra.cs.account.Provisioning;
@@ -46,13 +47,21 @@ public class GenerateSecretKeyCallback extends AttributeCallback {
         if(Strings.isNullOrEmpty(secretKey)) {
             secretKey = SecretKey.generateRandomString();
             Provisioning.getInstance().getConfig().setSecretKeyForMailRecall(secretKey);
-
-            Provisioning prov = Provisioning.getInstance();
-            SoapProvisioning sp = (SoapProvisioning) prov;
-            sp.flushCache("config", null, true);
+            flushCache();
         }
         } catch (ServiceException e) {
-            e.printStackTrace();
+            ZimbraLog.misc.warn("Encountered exception during getting Secret Key", e);
+        }
+    }
+
+    private void flushCache() {
+        try {
+            SoapProvisioning sp = new SoapProvisioning();
+            sp.soapSetURI(SoapProvisioning.getLocalConfigURI());
+            sp.soapZimbraAdminAuthenticate();
+            sp.flushCache("config", null, true);
+        } catch (ServiceException e) {
+            ZimbraLog.misc.warn("Encountered exception during FlushCache after creating Secret Key", e);
         }
     }
 
