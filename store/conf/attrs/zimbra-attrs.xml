@@ -10367,4 +10367,9 @@ TODO: delete them permanently from here
   <globalConfigValue>TRUE</globalConfigValue>
   <desc>whether to enable CountObjectsRequest with userAccount/account type on Zimbra Admin Console</desc>
 </attr>
+
+<attr id="4098" name="zimbraFeatureAllowUsernameInPassword" type="boolean" cardinality="single" optionalIn="account,cos,domain" flags="accountInfo,accountCosDomainInherited" since="10.1.0">
+  <defaultCOSValue>TRUE</defaultCOSValue>
+  <desc>To restrict/allow the use of username in the password when user reset or change their password to achieve greater password security.</desc>
+</attr>
 </attrs>
