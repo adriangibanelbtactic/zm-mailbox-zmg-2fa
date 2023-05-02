@@ -646,8 +646,8 @@ public class AccountConstants {
     public static final String E_HOSTNAME = "hostname";
 
     // MailRecall Uses
-    public static final String E_MAIL_RECALL_REQUEST = "mailRecallRequest";
-    public static final String E_MAIL_RECALL_RESPONSE = "mailRecallReponse";
+    public static final String E_MAIL_RECALL_REQUEST = "MailRecallRequest";
+    public static final String E_MAIL_RECALL_RESPONSE = "MailRecallResponse";
     public static final QName MAIL_RECALL_REQUEST = QName.get(E_MAIL_RECALL_REQUEST, NAMESPACE);
     public static final QName MAIL_RECALL_RESPONSE = QName.get(E_MAIL_RECALL_RESPONSE, NAMESPACE);
     public static final String ITEM_ID = "item_id";
